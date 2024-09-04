@@ -8,7 +8,11 @@ import { Provider } from "react-redux";
 import persistStore from "redux-persist/es/persistStore";
 // import persistStore from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+if (import.meta.env.VITE_MODE === "production") {
+  disableReactDevTools();
+}
+///
 const persistor = persistStore(Store);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

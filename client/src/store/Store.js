@@ -4,6 +4,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import UserReducer from "./slices/UserSlice";
+import LoaderReducer from "./slices/LoaderSlice";
 
 const persistConfig = {
   key: "root",
@@ -13,6 +14,7 @@ const persistConfig = {
 
 const combine_Reducers = combineReducers({
   user: UserReducer,
+  loader: LoaderReducer,
 });
 const persist_Reducer = persistReducer(persistConfig, combine_Reducers);
 
@@ -24,6 +26,7 @@ const Store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
+  devTools: false,
 });
 
 export default Store;

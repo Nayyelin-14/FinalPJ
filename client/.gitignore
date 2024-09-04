@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+.env
 # // how redux works
 # store (global states ) twy ko manipulate loke phoh <== reducers twy sount tl
 # useSelector => get states from store and manipulate with reducers

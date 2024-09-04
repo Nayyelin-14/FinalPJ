@@ -1,133 +1,141 @@
-// import React from "react";
-// import { Form, Input, Row, Col, Select, Checkbox } from "antd";
-// import TextArea from "antd/es/input/TextArea";
-// import { SquaresPlusIcon } from "@heroicons/react/24/solid";
-// const Products = () => {
-//   const options = [
-//     { value: "mobile_phones", label: "Mobile Phones" },
-//     { value: "laptops_computers", label: "Laptops & Computers" },
-//     { value: "tablets_accessories", label: "Tablets & Accessories" },
-//     { value: "cameras_photography", label: "Cameras & Photography" },
-//     { value: "audio_headphones", label: "Audio & Headphones" },
-//     { value: "wearable_technology", label: "Wearable Technology" },
-//     { value: "home_appliances", label: "Home Appliances" },
-//     { value: "video_games_consoles", label: "Video Games & Consoles" },
-//   ];
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import { deleteProduct } from "../../apicalls/products";
+import { message } from "antd";
+Link;
+const Products = ({
+  products,
+  setActiveTabkey,
+  setEditmode,
+  setEditProductId,
+  getProducts,
+}) => {
+  useEffect(() => {
+    if (products) {
+      getProducts();
+    }
+  }, []);
 
-//   const checkBoxOptions = [
-//     {
-//       label: "Accessories",
-//       value: "Accessories",
-//     },
-//     {
-//       label: "Warranty",
-//       value: "Warranty",
-//     },
-//     {
-//       label: "Voucher",
-//       value: "Voucher",
-//     },
-//   ];
-//   return (
-//     <div>
-//       <h1 className="text-2xl mt-3 mb-3 font-medium">
-//         What do you want to sell?
-//       </h1>
-//       <Form layout="vertical">
-//         <Form.Item
-//           name="product_name"
-//           label="Product_name"
-//           rules={[
-//             {
-//               required: true,
-//               message: "Please Enter product name",
-//             },
-//           ]}
-//           hasFeedback
-//         >
-//           <Input placeholder="Product name..."></Input>
-//         </Form.Item>
+  const gotoEditPage = (product_id) => {
+    setEditmode(true);
+    setActiveTabkey("2");
+    setEditProductId(product_id);
+  };
+  const deletehandler = async (delete_product_id) => {
+    try {
+      const response = await deleteProduct(delete_product_id);
+      if (response.isSuccess) {
+        await getProducts(); //prodcut twy ko render t khr htl cha
+        message.success(response.message);
+      } else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
 
-//         <Form.Item
-//           label="Product description"
-//           name="product_description"
-//           rules={[
-//             {
-//               required: true,
-//               message: "Enter product's description",
-//             },
-//           ]}
-//           hasFeedback
-//         >
-//           <TextArea rows={4} placeholder="description..." />
-//         </Form.Item>
-//         <div>
-//           <Row gutter={16}>
-//             <Col span={8}>
-//               <Form.Item
-//                 label="Price"
-//                 name="price"
-//                 rules={[
-//                   {
-//                     required: true,
-//                     message: "Enter product's price",
-//                   },
-//                 ]}
-//                 hasFeedback
-//               >
-//                 <Input type="number"></Input>
-//               </Form.Item>
-//             </Col>
+  return (
+    <div>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-center">
+                Product name
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Category
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Sell-Date
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Status
+              </th>
 
-//             <Col span={8}>
-//               <Form.Item
-//                 label="Product category"
-//                 name="price"
-//                 rules={[
-//                   {
-//                     required: true,
-//                     message: "Choose a category",
-//                   },
-//                 ]}
-//                 hasFeedback
-//               >
-//                 <Select defaultValue={""} options={options} />
-//               </Form.Item>
-//             </Col>
-//             <Col span={8}>
-//               <Form.Item
-//                 label="Used for"
-//                 name="product_used_for"
-//                 rules={[
-//                   {
-//                     required: true,
-//                     message: "Enter product's used time",
-//                   },
-//                 ]}
-//                 hasFeedback
-//               >
-//                 <Input type="number" placeholder="eg. 3 months ago..." />
-//               </Form.Item>
-//             </Col>
-//           </Row>
-//           <Form.Item label="Details" name="product_details">
-//             <Checkbox.Group options={checkBoxOptions} defaultValue={""} />
-//           </Form.Item>
-//         </div>
-//         <button className="font-medium text-lg text-center my-2 bg-blue-500 p-2 rounded-lg flex items-center gap-2 w-full justify-center text-white">
-//           <SquaresPlusIcon width={30} />
-//           Sell
-//         </button>
-//       </Form>
-//     </div>
-//   );
-// };
+              <th scope="col" className="px-6 py-3 text-center">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.length > 0 ? (
+              <>
+                {products.map((product) => {
+                  return (
+                    <tr
+                      className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b "
+                      key={product._id}
+                    >
+                      <th
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                      >
+                        {product.product_name}
+                      </th>
+                      <td className="px-6 py-4 text-center">
+                        {product.product_category}
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        {moment(product.createdAt).format("L")}
+                      </td>
+                      <td className="px-6 py-4">
+                        {product.product_status === "Pending" && (
+                          <p className="p-1 bg-yellow-500 rounded-lg text-white font-medium text-center">
+                            {product.product_status}
+                          </p>
+                        )}
+                        {product.product_status === "reject" && (
+                          <p className="p-1 bg-red-500 rounded-lg text-white font-medium text-center">
+                            {product.product_status}
+                          </p>
+                        )}
+                        {product.product_status === "approve" && (
+                          <p className="p-1 bg-green-500 rounded-lg text-white font-medium text-center">
+                            {product.product_status}
+                          </p>
+                        )}
+                      </td>
 
-// export default Products;
-import React from "react";
-
-const Products = () => {
-  return <div>Products</div>;
+                      <td className="px-6 py-4 text-center flex gap-3">
+                        <button
+                          type="button"
+                          className="font-medium  text-base text-green-700 hover:underline hover:text-green-700 text-center"
+                          onClick={() => gotoEditPage(product._id)}
+                        >
+                          Upload
+                        </button>
+                        <button
+                          type="button"
+                          className="font-medium  text-base text-blue-600 hover:underline hover:text-blue-600 text-center"
+                          onClick={() => gotoEditPage(product._id)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          className="font-medium  text-base text-red-600 hover:underline hover:text-red-600"
+                          onClick={() => deletehandler(product._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                <p className="text-xl p-3 font-medium ">No product found</p>
+              </>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default Products;

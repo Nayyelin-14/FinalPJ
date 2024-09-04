@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { loginUser, registerUser } from "../apicalls/auth";
+import { loginUser, registerUser } from "../../apicalls/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
-import { setUserId } from "../store/slices/UserSlice";
+import { setUser } from "../../store/slices/UserSlice";
 import { useDispatch } from "react-redux";
 const Authform = ({ isLoginPage }) => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Authform = ({ isLoginPage }) => {
         if (response.isSuccess === true) {
           message.success(response.message);
           localStorage.setItem("token", response.token);
-          dispatch(setUserId(response.token));
+          dispatch(setUser(response.token));
           navigate("/");
         } else {
           throw new Error(response.message);
@@ -41,7 +41,7 @@ const Authform = ({ isLoginPage }) => {
     setSubmitting(false);
   };
   return (
-    <section className="h-screen w-full flex items-center justify-center">
+    <section className="h-[100%] mt-40 w-full flex items-center justify-center">
       <div className="w-[450px]">
         <h1 className="text-2xl text-blue-600 font-bold mb-3">
           NEXT.io - {isLoginPage ? "LOGIN" : "REGISTER"}

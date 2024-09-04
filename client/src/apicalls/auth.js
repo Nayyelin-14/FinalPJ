@@ -31,7 +31,7 @@ export const checkcurrentLoginUser = async () => {
     const response = await axiosInstance.get("/get-current-user", {
       validateStatus: () => true,
     });
-    console.log(response.data);
+    return response.data;
   } catch (err) {
     return err.message;
   }

@@ -65,7 +65,12 @@ exports.login = async (req, res, next) => {
       throw new Error("Invalid password");
     }
 
-    //create token if login success
+    //check user's status
+    if (Loginuser.status === "Inactive") {
+      throw new Error("This account was banned!!!");
+    }
+
+    //create and set token too that login access if login success
     const JWT_token = jwt.sign({ userId: Loginuser._id }, process.env.JWT_KEY, {
       expiresIn: "1d",
     });
@@ -87,7 +92,7 @@ exports.checkLoginUser = async (req, res, next) => {
   try {
     //middleware a loke loke yin req htl ko userID htae pyy lik mhr
     const userLogin = await User.findById(req.userID).select("name email role");
-    console.log(userLogin);
+    // console.log(userLogin);
     if (!userLogin) {
       res.redirect("/");
       throw new Error("Unauthorized user");

@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import Authform from "../Components/Authform";
+import Authform from "../Components/Authentiication/Authform";
 const Register = () => {
   const registerhandler = (values) => {
     console.log(values);
