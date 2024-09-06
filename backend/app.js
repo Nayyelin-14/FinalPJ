@@ -33,7 +33,7 @@ const filterConfig = (req, file, cb) => {
     cb(null, undefined);
   }
 };
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "https://market-place-client-qc75.onrender.com/" }));
 app.use(bodyParser.json());
 app.use(
   multer({ storage: storageConfig, fileFilter: filterConfig }).array(
