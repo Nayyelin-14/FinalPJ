@@ -36,9 +36,6 @@ exports.addNewProduct = async (req, res, next) => {
       product_price: product_price,
       product_seller: req.userID,
     });
-    // if (req.userID.toString() !== productDoc.product_seller) {
-    //   throw new Error("Unauthorized user!!!");
-    // }
     return res.status(201).json({
       isSuccess: true,
       message: "Product added to sell-list succefully",
@@ -85,9 +82,6 @@ exports.getAllproducts = async (req, res, next) => {
 exports.getOldproduct = async (req, res, next) => {
   try {
     const OldDoc = await Product.findOne({ _id: req.params.oldProid });
-    if (req.userID.toString() !== OldDoc.product_seller) {
-      throw new Error("Unauthorized user!!!");
-    }
     if (OldDoc) {
       return res.status(200).json({
         isSuccess: true,
@@ -125,8 +119,7 @@ exports.Update_Product = async (req, res, next) => {
       seller_ID,
       product_ID,
     } = req.body;
-
-    if (req.userID.toString() !== seller_ID) {
+    if (req.userID !== seller_ID) {
       throw new Error("Authorization failed");
     }
     const proDoc_toUpdate = await Product.findOne({ _id: product_ID });
@@ -162,8 +155,8 @@ exports.delete_product = async (req, res, next) => {
     // console.log(req.userID);
     const DELETE_image = proDoc_todelete.images;
 
-    if (req.userID !== proDoc_todelete.product_seller.toString()) {
-      throw new Error("Failed to delete, unauthorized user");
+    if (req.userID !== proDoc_todelete.product_seller) {
+      throw new Error("Failed to delete");
     }
 
     if (DELETE_image.length > 0 && Array.isArray(DELETE_image)) {
@@ -209,7 +202,7 @@ exports.uploadProduct_Images = async (req, res) => {
   // console.log(productId);
   const productDoc = await Product.findOne({ _id: productId });
   // console.log(productDoc);
-  if (req.userID.toString() !== productDoc.product_seller.toString()) {
+  if (req.userID !== productDoc.product_seller) {
     throw new Error("Authorization Failed.");
   }
 
@@ -257,13 +250,7 @@ exports.get_ProductImages = async (req, res) => {
   const { product_id } = req.params;
 
   try {
-    const Product_doc = await Product.findById(product_id).select(
-      "images product_seller"
-    );
-
-    if (req.userID.toString() !== Product_doc.product_seller) {
-      throw new Error("Unauthorized user!!!");
-    }
+    const Product_doc = await Product.findById(product_id).select("images");
 
     if (!Product_doc) {
       throw new Error("Product images not found");
@@ -292,14 +279,6 @@ exports.delete_saved_img = async (req, res) => {
       deleteimgId.lastIndexOf("/") + 1,
       deleteimgId.lastIndexOf(".")
     );
-
-    const Product_doc = await Product.findById(productId).select(
-      "images product_seller"
-    );
-
-    if (req.userID.toString() !== Product_doc.product_seller) {
-      throw new Error("Unauthorized user!!!");
-    }
 
     await cloudinary.uploader.destroy(public_ID_ToDelete);
 

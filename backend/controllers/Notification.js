@@ -55,11 +55,6 @@ exports.markasRead = async (req, res) => {
 
   try {
     const NotiRead_Docs = await Notification.findById(noti_id);
-
-    if (req.userID.toString() !== NotiRead_Docs.owner_id.toString()) {
-      throw new Error("Authorization failed");
-    }
-
     if (!NotiRead_Docs || NotiRead_Docs.length === 0) {
       throw new Error("There is no notification");
     }
@@ -85,10 +80,6 @@ exports.deleteSingleNoti = async (req, res) => {
 
   try {
     const NotiRead_Docs = await Notification.findByIdAndDelete(notiId);
-
-    if (req.userID.toString() !== NotiRead_Docs.owner_id.toString()) {
-      throw new Error("Authorization failed");
-    }
     if (!NotiRead_Docs || NotiRead_Docs.length === 0) {
       throw new Error("There is no notification");
     }

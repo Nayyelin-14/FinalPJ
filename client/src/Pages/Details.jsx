@@ -88,7 +88,7 @@ const Details = () => {
   };
 
   return (
-    <section className="flex flex-col gap-10 items-center justify-center sm:flex-row sm:items-start sm:justify-between mt-10">
+    <section className="flex flex-col gap-14 items-center justify-center sm:flex-row sm:items-start sm:justify-between mt-10 max-w-5xl mx-auto">
       {isProcessing ? (
         <div className="flex items-center justify-center max-w-4xl mx-auto">
           <TailSpin
@@ -111,7 +111,7 @@ const Details = () => {
                 <img
                   src={product.images[selectedImage]}
                   alt=""
-                  className="w-full xl:w-[80%] h-80 object-fill object-center overflow-hidden rounded-lg "
+                  className="w-full xl:w-[100%] h-80 object-fill object-center overflow-hidden rounded-lg "
                 />
                 <div className="flex items-center gap-2 mt-3">
                   {product.images.map((img, index) => {
@@ -137,7 +137,7 @@ const Details = () => {
               <img
                 src={profile}
                 alt=""
-                className="w-full  xl:w-[80%]  h-80 object-fill object-center overflow-hidden rounded-lg"
+                className="w-full  xl:w-[100%]  h-80 object-fill object-center overflow-hidden rounded-lg"
                 onClick={() => setSelectedImage(index)}
               />
             )}
@@ -145,7 +145,7 @@ const Details = () => {
           {product && product.product_category && product.product_seller && (
             <div className="w-2/3 sm:ml-20 mb-10">
               <div className="flex items-center justify-between">
-                <h1 className="xl:text-3xl text-2xl  xl:font-bold font-medium ">
+                <h1 className="xl:text-2xl text-2xl  xl:font-bold font-medium ">
                   Product name - {product.product_name}
                 </h1>
 
@@ -215,7 +215,7 @@ const Details = () => {
                       {formatDistanceToNow(new Date(bid.createdAt))} ago
                     </p>
                     <p className="text-gray-500 font-medium text-lg">
-                      comment - {bid.comment_msg}
+                      {bid.comment_msg}
                     </p>
                   </div>
                 ))}

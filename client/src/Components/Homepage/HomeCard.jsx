@@ -10,11 +10,10 @@ import { useEffect } from "react";
 // /product/:productID
 const HomeCard = ({
   product,
-  products,
+  displayProducts,
   saved = false,
   saved_PRODUCTS,
   savedProducts,
-  updateSavedProducts,
 }) => {
   const { user } = useSelector((state) => state.reducer.user);
   // console.log(user);
@@ -31,7 +30,6 @@ const HomeCard = ({
       if (response.isSuccess) {
         if (saved) {
           saved_PRODUCTS();
-          // updateSavedProducts();
         }
         message.success(response.message);
       }
@@ -46,6 +44,7 @@ const HomeCard = ({
     );
   }; //loop htk pek ya ml
   useEffect(() => {}, [saved_PRODUCTS]);
+
   return (
     <div className={`${saved && "basis-1/4 mx-auto"} bg-white p-4 rounded-lg`}>
       <div className={`${saved && "flex-col justify-between gap-10"}`}>
@@ -117,7 +116,7 @@ const HomeCard = ({
         <p className="text-gray-600">
           {product.product_description.slice(0, 100)}
         </p>
-        <hr />
+        <hr className="my-5" />
         <p className="font-semibold mt-2 text-right">
           {" "}
           {product.product_price} Baht

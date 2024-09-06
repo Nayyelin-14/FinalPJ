@@ -121,7 +121,7 @@ export const getAllPublic_product = async (page, perPage) => {
         },
       }
     );
-    // console.log(response.data);
+    console.log(response);
     return response.data;
   } catch (error) {
     return error.message;

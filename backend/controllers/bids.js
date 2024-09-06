@@ -2,11 +2,7 @@ const Bids = require("../models/bids");
 exports.saveBids = async (req, res) => {
   const { message, phone, Product_ID, Seller_ID, commented_userID } = req.body;
   try {
-    if (Seller_ID === commented_userID) {
-      throw new Error("Authorization failed");
-    }
-
-    const response = await Bids.create({
+    const reponse = await Bids.create({
       product_id: Product_ID,
       seller_id: Seller_ID,
       commented_userID,

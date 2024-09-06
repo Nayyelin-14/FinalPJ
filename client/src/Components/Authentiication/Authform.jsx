@@ -13,7 +13,7 @@ const Authform = ({ isLoginPage }) => {
       setSubmitting(true);
       try {
         const response = await loginUser(values);
-        console.log("logined", response.isSuccess.toString());
+        console.log(response);
         if (response.isSuccess === true) {
           message.success(response.message);
           localStorage.setItem("token", response.token);

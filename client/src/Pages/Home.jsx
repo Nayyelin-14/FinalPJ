@@ -42,27 +42,28 @@ const Home = () => {
       } else {
         throw new Error("There is no product found ");
       }
-      console.log(response);
+      // console.log(response);
     } catch (err) {
       return message.error(err.message);
     }
     dispatch(setLoader(false));
   };
 
-  console.log(currentPage);
-  console.log(totalItems);
+  // console.log(currentPage);
+  // console.log(totalItems);
   const saved_products = async () => {
-    if (user) {
-      try {
-        const response = await getsaved_products();
-        if (response.isSuccess) {
-          setSavedProducts([...response.saved_productDOC]);
-        } else {
-          console.error(response.message);
-        }
-      } catch (err) {
-        message.error(err.message);
+    try {
+      const response = await getsaved_products();
+      if (response.isSuccess) {
+        setSavedProducts([...response.saved_productDOC]);
+
+        // displayProducts();
+      } else {
+        console.error(response.message);
       }
+      displayProducts();
+    } catch (err) {
+      message.error(err.message);
     }
   };
 
@@ -70,18 +71,10 @@ const Home = () => {
     expire_login_Token();
     displayProducts(1, 6);
     saved_products();
+    // saved_PRODUCTS()
   }, []);
-  useEffect(() => {
-    // Any logic that should run when `products` or `savedProducts` changes
-  }, [products, savedProducts]);
-  // console.log(savedProducts);
-  // console.log(products);
-  const updateSavedProducts = async () => {
-    await saved_products();
-  };
 
   const changePageHandle = (page) => {
-    console.log(page, 6);
     displayProducts(page, 6);
   };
   return (
@@ -107,7 +100,7 @@ const Home = () => {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-3 gap-4 max-w-6xl mx-auto">
+                <div className="flex flex-col gap-3 lg:grid lg:grid-cols-3 lg:gap-4 lg:max-w-6xl mx-auto ">
                   {products.map((product, index) => {
                     return (
                       <HomeCard
@@ -116,7 +109,7 @@ const Home = () => {
                         savedProducts={savedProducts}
                         saved_products={saved_products}
                         products={products}
-                        updateSavedProducts={updateSavedProducts}
+                        displayProducts={displayProducts}
                       />
                     );
                   })}

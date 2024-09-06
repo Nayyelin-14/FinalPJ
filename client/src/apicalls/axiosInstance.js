@@ -6,7 +6,7 @@ const getrefreshToken = () => {
 };
 // console.log(refreshToken);
 export const axiosInstance = axios.create({
-  baseURL: `${import.meta.env.VITE_SERVER_URL}`,
+  baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
 axiosInstance.interceptors.request.use(

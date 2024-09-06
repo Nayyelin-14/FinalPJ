@@ -46,7 +46,9 @@ app.use(authRoutes);
 app.use(productRoutes);
 app.use(adminRoutes);
 app.use("/api", publicRoutes);
+
+const PORT = 4100;
 mongoose.connect(process.env.MONGO_URL).then(() => {
-  app.listen(4100);
-  console.log("Server is running at 4000");
+  app.listen(PORT);
+  console.log(`Server is running at port - ${PORT}`);
 });

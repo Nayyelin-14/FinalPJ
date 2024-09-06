@@ -52,7 +52,9 @@ const SavedIndex = () => {
   return (
     <div>
       <div className="flex items-center justify-between px-6">
-        <h1 className="text-3xl  font-bold my-4">Saved Prodcuts </h1>
+        <h1 className=" text-xl font-semibold xl:text-3xl  xl:font-bold my-4">
+          Saved Prodcuts{" "}
+        </h1>
         <ArrowLeftIcon
           width={25}
           height={25}
@@ -74,7 +76,7 @@ const SavedIndex = () => {
           />
         </div>
       ) : (
-        <div className="flex flex-col w-[60%] gap-4 sm:flex-row sm:flex-wrap sm:gap-4 sm:w-full mx-auto">
+        <div className="flex flex-col w-[60%] gap-5 lg:flex-row lg:flex-wrap lg:gap-4 lg:w-full mx-auto">
           {savedProducts && savedProducts.length > 0 && (
             <>
               {savedProducts.map((savedProduct) =>
