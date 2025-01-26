@@ -3,7 +3,6 @@
 This project is a platform for users to sell products and for admins to manage product sales. Users can create products to sell, view their sales history, place bids, leave comments, and interact with admins for approval. Admins can manage access, approve, or reject products that users want to sell.
 
 ## Key Features
-
 ### User Side
 - **Create Products**: Users can create new products to sell on the platform by providing product details such as name, description, price, and category.
 - **View Sales History**: Users can track the products they’ve sold and review their sales history on their profile.
@@ -25,6 +24,7 @@ This project is a platform for users to sell products and for admins to manage p
 ## Landing Page
 - **Product Display**: The homepage features a clean layout where products are showcased for users to browse.
 - **Product Filtering**: Users can filter products by input (search bar) or by selecting specific categories to narrow down the displayed products, making it easier to find items of interest.
+![landing] (./client/src/images/landing.png)
 
 ### Frontend
 - **React**: A JavaScript library for building user interfaces.
@@ -88,23 +88,12 @@ This project is a platform for users to sell products and for admins to manage p
       npm start
       ```
 
-### Environment Variables
-Make sure to set the following environment variables in your `.env` files:
 
-#### Frontend:
-- `REACT_APP_API_URL`: URL of your backend API.
 
-#### Backend:
-- `MONGO_URI`: Connection string to your MongoDB database.
-- `JWT_SECRET`: A secret key used for JWT authentication.
-- `PORT`: The port on which the backend server will run (default: 5000).
 
-## Contributing
-If you'd like to contribute to this project, please follow these steps:
-1. Fork the repository.
-2. Create a new branch.
-3. Make your changes.
-4. Submit a pull request.
+
+
+
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
