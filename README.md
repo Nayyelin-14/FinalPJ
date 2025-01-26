@@ -88,16 +88,3 @@ This project is a platform for users to sell products and for admins to manage p
       cd backend
       npm start
       ```
-
-
-
-
-
-
-
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-- Thanks to the open-source community for libraries and tools that made this project possible.
