@@ -25,7 +25,7 @@ This project is a platform for users to sell products and for admins to manage p
 - **Product Display**: The homepage features a clean layout where products are showcased for users to browse.
 - **Product Filtering**: Users can filter products by input (search bar) or by selecting specific categories to narrow down the displayed products, making it easier to find items of interest.
   
-![landing](./client/src/images/landing.png)
+![landing](client/src/images/landing.jpg)
 
 ### Frontend
 - **React**: A JavaScript library for building user interfaces.
